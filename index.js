@@ -15,21 +15,21 @@ class Player {
   }
 
   draw() {
-    // c.fillStyle = `red`
-    // c.fillRect(this.position.x,this.position.y,100,100)
     c.moveTo(this.position.x + 50, this.position.y);
     c.lineTo(this.position.x - 10, this.position.y - 20);
     c.lineTo(this.position.x - 10, this.position.y + 20);
     c.closePath();
 
     c.strokeStyle = `yellow`;
+    c.fillStyle = `yellow`
     c.stroke();
+    c.fill()
   }
 }
 
-const plaer = new Player({
+const player = new Player({
   position: { x: canvas.width / 2, y: canvas.height / 2 },
   velocity: { x: 0, y: 0 },
 });
 
-plaer.draw();
+player.draw();
