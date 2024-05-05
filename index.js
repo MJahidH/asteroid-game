@@ -13,11 +13,23 @@ class Player {
     this.position = position;
     this.velocity = velocity;
   }
+
+  draw() {
+    // c.fillStyle = `red`
+    // c.fillRect(this.position.x,this.position.y,100,100)
+    c.moveTo(this.position.x + 50, this.position.y);
+    c.lineTo(this.position.x - 10, this.position.y - 20);
+    c.lineTo(this.position.x - 10, this.position.y + 20);
+    c.closePath();
+
+    c.strokeStyle = `yellow`;
+    c.stroke();
+  }
 }
 
 const plaer = new Player({
-  position: { x: 0, y: 0 },
+  position: { x: canvas.width / 2, y: canvas.height / 2 },
   velocity: { x: 0, y: 0 },
 });
 
-console.log(plaer)
+plaer.draw();
