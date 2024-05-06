@@ -21,9 +21,9 @@ class Player {
     c.closePath();
 
     c.strokeStyle = `yellow`;
-    c.fillStyle = `yellow`
+    c.fillStyle = `yellow`;
     c.stroke();
-    c.fill()
+    c.fill();
   }
 }
 
@@ -33,3 +33,18 @@ const player = new Player({
 });
 
 player.draw();
+
+window.addEventListener(`keydown`, (event) => {
+
+  switch (event.code) {
+    case `KeyW`:
+      console.log(`hello world `)
+    break 
+    case `KeyA`:
+      console.log(`hello world `)
+    break 
+    case `KeyD`:
+      console.log(`hello world `)
+    break 
+  }
+});
