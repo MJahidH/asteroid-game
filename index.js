@@ -55,20 +55,37 @@ function animate() {
   c.fillRect(0, 0, canvas.width, canvas.height);
   player.update();
 
+  
   if (keys.w.pressed) player.velocity.x = 1;
+  else player.velocity.x = 0
 }
 
 animate();
+
 window.addEventListener(`keydown`, (event) => {
   switch (event.code) {
     case `KeyW`:
       keys.w.pressed = true;
       break;
     case `KeyA`:
-      console.log(`hello world `);
+      keys.a.pressed = true;
       break;
     case `KeyD`:
-      console.log(`hello world `);
+      keys.d.pressed = true;
+      break;
+  }
+});
+
+window.addEventListener(`keyup`, (event) => {
+  switch (event.code) {
+    case `KeyW`:
+      keys.w.pressed = false;
+      break;
+    case `KeyA`:
+      keys.a.pressed = false;
+      break;
+    case `KeyD`:
+      keys.d.pressed = false;
       break;
   }
 });
