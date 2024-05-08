@@ -10,20 +10,25 @@ class Player {
   constructor({ position, velocity, color, radius }) {
     this.position = position;
     this.velocity = velocity;
+    this.rotation = 0;
   }
 
   draw() {
+    c.save();
+    c.translate(this.position.x, this.position.y);
+    c.rotate(this.rotation);
+    c.translate(-this.position.x, -this.position.y);
     c.beginPath();
     c.moveTo(this.position.x + 50, this.position.y);
     c.lineTo(this.position.x - 10, this.position.y - 20);
     c.lineTo(this.position.x - 10, this.position.y + 20);
-    c.closePath();
     c.closePath();
 
     c.strokeStyle = `yellow`;
     c.fillStyle = `yellow`;
     c.stroke();
     c.fill();
+    c.restore();
   }
   update() {
     this.draw();
@@ -55,9 +60,9 @@ function animate() {
   c.fillRect(0, 0, canvas.width, canvas.height);
   player.update();
 
-  
+  player.velocity.x = 0;
   if (keys.w.pressed) player.velocity.x = 1;
-  else player.velocity.x = 0
+  if (keys.d.pressed) player.rotation += 0.04;
 }
 
 animate();
