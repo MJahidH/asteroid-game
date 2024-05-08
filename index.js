@@ -60,17 +60,15 @@ function animate() {
   c.fillRect(0, 0, canvas.width, canvas.height);
   player.update();
 
-  player.velocity.x = 0;
-
   if (keys.w.pressed) {
-    player.velocity.x = Math.cos(player.rotation);
-    player.velocity.y = Math.sin(player.rotation);
-  } else {
-    player.velocity.x = 0
-    player.velocity.y = 0
+    player.velocity.x = Math.cos(player.rotation) * 6;
+    player.velocity.y = Math.sin(player.rotation) * 6;
+  } else if (!keys.w.pressed) {
+    player.velocity.x *= 0.97
+    player.velocity.y *= 0.97;
   }
-  if (keys.d.pressed) player.rotation += 0.04;
-  else if (keys.a.pressed) player.rotation -= 0.04;
+  if (keys.d.pressed) player.rotation += 0.05;
+  else if (keys.a.pressed) player.rotation -= 0.05;
 }
 
 animate();
