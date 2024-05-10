@@ -37,6 +37,26 @@ class Player {
   }
 }
 
+class Projectile {
+  constructor({ position, velocity }) {
+    this.position = position;
+    this.velocity = velocity;
+    this.radius = 5;
+  }
+  draw() {
+    c.beginPath();
+    c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2, false);
+    c.closePath();
+    c.fillStyle = `white`;
+    c.fill();
+  }
+  update() {
+    this.draw();
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
+  }
+}
+
 const player = new Player({
   position: { x: canvas.width / 2, y: canvas.height / 2 },
   velocity: { x: 0, y: 0 },
@@ -54,17 +74,23 @@ const keys = {
   },
 };
 
+const projectiles = [];
+
 function animate() {
   window.requestAnimationFrame(animate);
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
   player.update();
 
+for (let i = projectiles.length - 1 ; i >= 0 ; i--) {
+
+}
+
   if (keys.w.pressed) {
     player.velocity.x = Math.cos(player.rotation) * 6;
     player.velocity.y = Math.sin(player.rotation) * 6;
   } else if (!keys.w.pressed) {
-    player.velocity.x *= 0.97
+    player.velocity.x *= 0.97;
     player.velocity.y *= 0.97;
   }
   if (keys.d.pressed) player.rotation += 0.05;
@@ -83,6 +109,14 @@ window.addEventListener(`keydown`, (event) => {
       break;
     case `KeyD`:
       keys.d.pressed = true;
+      break;
+    case `Space`:
+      projectiles.push(
+        new Projectile({
+          position: { x: player.position.x, y: player.position.y },
+          velocity: { x: 1, y: 0 },
+        })
+      );
       break;
   }
 });
