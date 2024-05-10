@@ -82,9 +82,10 @@ function animate() {
   c.fillRect(0, 0, canvas.width, canvas.height);
   player.update();
 
-for (let i = projectiles.length - 1 ; i >= 0 ; i--) {
-
-}
+  for (let i = projectiles.length - 1; i >= 0; i--) {
+    const projectile = projectiles[i];
+    projectile.update()
+  }
 
   if (keys.w.pressed) {
     player.velocity.x = Math.cos(player.rotation) * 6;
