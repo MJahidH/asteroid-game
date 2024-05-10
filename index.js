@@ -84,7 +84,7 @@ function animate() {
 
   for (let i = projectiles.length - 1; i >= 0; i--) {
     const projectile = projectiles[i];
-    projectile.update()
+    projectile.update();
   }
 
   if (keys.w.pressed) {
@@ -114,8 +114,14 @@ window.addEventListener(`keydown`, (event) => {
     case `Space`:
       projectiles.push(
         new Projectile({
-          position: { x: player.position.x, y: player.position.y },
-          velocity: { x: 1, y: 0 },
+          position: {
+            x: player.position.x + Math.cos(player.rotation) * 50,
+            y: player.position.y + Math.sin(player.rotation) * 50,
+          },
+          velocity: {
+            x: Math.cos(player.rotation) * 5,
+            y: Math.sin(player.rotation) * 5,
+          },
         })
       );
       break;
