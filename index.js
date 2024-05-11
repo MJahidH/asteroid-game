@@ -57,6 +57,28 @@ class Projectile {
   }
 }
 
+class Asteroid {
+  constructor({ position, velocity }) {
+    this.position = position;
+    this.velocity = velocity;
+    this.radius = 50 * Math.random() + 10;
+  }
+  draw() {
+    c.beginPath();
+    c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2, false);
+    c.closePath();
+    c.strokeStyle = `white`;
+    c.fillStyle = `blue`;
+    c.fill();
+    c.stroke();
+  }
+  update() {
+    this.draw();
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
+  }
+}
+
 const player = new Player({
   position: { x: canvas.width / 2, y: canvas.height / 2 },
   velocity: { x: 0, y: 0 },
@@ -75,6 +97,22 @@ const keys = {
 };
 
 const projectiles = [];
+const asteroids = [];
+
+window.setInterval(() => {
+  asteroids.push(
+    new Asteroid({
+      position: {
+        x: 0,
+        y: 0,
+      },
+      velocity: {
+        x: 1,
+        y: 0,
+      },
+    })
+  );
+}, 3000);
 
 function animate() {
   window.requestAnimationFrame(animate);
@@ -88,12 +126,18 @@ function animate() {
 
     if (
       projectile.position.x + projectile.radius < 0 ||
-      projectile.position.x - projectile.radius >  canvas.width ||
+      projectile.position.x - projectile.radius > canvas.width ||
       projectile.position.y - projectile.radius > canvas.height ||
       projectile.position.y + projectile.radius < 0
     ) {
       projectiles.splice(i, 1);
     }
+  }
+
+  // this is the asteroids loop
+  for (let i = asteroids.length - 1; i >= 0; i--) {
+    const asteroid = asteroids[i];
+    asteroid.update();
   }
 
   if (keys.w.pressed) {
