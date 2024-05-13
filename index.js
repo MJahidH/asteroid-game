@@ -116,7 +116,7 @@ const keys = {
 const projectiles = [];
 const asteroids = [];
 
-window.setInterval(() => {
+const intervalID = window.setInterval(() => {
   const index = Math.floor(Math.random() * 4);
 
   let x, y;
@@ -226,7 +226,7 @@ function isPointOnLineSegment(x, y, start, end) {
 }
 
 function animate() {
-  window.requestAnimationFrame(animate);
+  const animationID = window.requestAnimationFrame(animate);
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
   player.update();
@@ -252,6 +252,8 @@ function animate() {
 
     if (circleTriangleCollision(asteroid, player.getVertices())) {
       console.log(`game over `);
+      window.cancelAnimationFrame(animationID);
+      window.clearInterval(intervalID);
     }
 
     if (
